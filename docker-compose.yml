@@ -1,0 +1,37 @@
+version: '3.1'
+services:
+  mysql:
+    image: mysql:8
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql:/data/mysql
+    env_file:
+      - .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+  mongodb:
+    image: mongo:4.4.6
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+volumes:
+  mysql:
+    external: true
+  mongodb:
+    external: true
+  rabbitmq:
+    external: true
+  arangodb:
+    external: true
+  redisdb:
+    external: true
+  dynamodb:
+    external: true

@@ -19,17 +19,47 @@ services:
       - 27017:27017
     volumes:
       - mongodb:/data/mongodb
+    env_file:
+      - .env
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+  rabbitmq:
+    image: rabbitmq:3
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - rabbitmq_data:/data/rabbitmq/
+        - rabbitmq_log:/var/log/rabbitmq/
+    env_file:
+      - .env
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+  arangodb:
+    image: arangodb:latest
+    ports:
+        - 8529:8529
+    volumes:
+        - arangodb_data_container:/var/lib/arangodb3
+        - arangodb_apps_data_container:/var/lib/arangodb3-apps
+    env_file:
+      - .env
+    environment:
+      - ARANGO_ROOT_PASSWORD=${ARANGO_ROOT_PASSWORD}
 volumes:
   mysql:
     external: true
   mongodb:
     external: true
-  rabbitmq:
+  rabbitmq_data:
     external: true
-  arangodb:
+  rabbitmq_log:
+    external: true  
+  arangodb_data_container:
+    external: true
+  arangodb_apps_data_container:
     external: true
   redisdb:
     external: true

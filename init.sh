@@ -21,5 +21,5 @@ sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-compose
 
 echo "=== Setting up Vagrant as docker user ==="
-sudo usermod -aG docker vagrant
+sudo usermod -aG docker $USER
 sudo systemctl restart docker

@@ -9,9 +9,10 @@ createvols:
 	&& sudo docker volume create rabbitmq_log \
 	&& sudo docker volume create arangodb_data_container \
 	&& sudo docker volume create arangodb_apps_data_container \
-	&& sudo docker volume create arangodb \
-	&& sudo docker volume create redisdb \
-	&& sudo docker volume create dynamodb
+	&& sudo docker volume create redisdb_appdata \
+	&& sudo docker volume create redisdb_timezone \
+	&& sudo docker volume create redisdb_localtime \
+	&& sudo docker volume create dynamodb_data
 start:
 	sudo docker-compose up -d
 stop:
@@ -23,6 +24,7 @@ cleanvols:
 	&& sudo docker volume rm rabbitmq_log \
 	&& sudo docker volume rm arangodb_data_container \
 	&& sudo docker volume rm arangodb_apps_data_container \
-	&& sudo docker volume rm arangodb \
-	&& sudo docker volume rm redisdb \
-	&& sudo docker volume rm dynamodb
+	&& sudo docker volume create redisdb_appdata \
+	&& sudo docker volume create redisdb_timezone \
+	&& sudo docker volume create redisdb_localtime \
+	&& sudo docker volume rm dynamodb_data

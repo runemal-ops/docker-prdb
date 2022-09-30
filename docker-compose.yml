@@ -48,6 +48,25 @@ services:
       - .env
     environment:
       - ARANGO_ROOT_PASSWORD=${ARANGO_ROOT_PASSWORD}
+  redisdb:
+    image: redis:latest
+    ports:
+        - 6379:6379
+    volumes:
+    - redisdb_appdata:/data
+    - redisdb_timezone:/etc/timezone:ro
+    - redisdb_localtime:/etc/localtime:ro
+    env_file:
+      - .env
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+  dynamodb:
+    image: amazon/dynamodb-local
+    ports:
+        - 8000:8000
+    volumes:
+    - dynamodb_data:/data
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath /data"
 volumes:
   mysql:
     external: true
@@ -61,7 +80,11 @@ volumes:
     external: true
   arangodb_apps_data_container:
     external: true
-  redisdb:
+  redisdb_appdata:
     external: true
-  dynamodb:
+  redisdb_timezone:
+    external: true
+  redisdb_localtime:
+    external: true
+  dynamodb_data:
     external: true

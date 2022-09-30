@@ -54,8 +54,6 @@ services:
         - 6379:6379
     volumes:
     - redisdb_appdata:/data
-    - redisdb_timezone:/etc/timezone:ro
-    - redisdb_localtime:/etc/localtime:ro
     env_file:
       - .env
     environment:
